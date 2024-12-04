@@ -1,0 +1,39 @@
+services:
+
+  dnsmasq:
+    image: dockurr/dnsmasq
+    container_name: dnsmasq
+    restart: unless-stopped
+    volumes:
+      - ./dnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+      - 53:53/udp
+      - 53:53/tcp
+    networks:
+      dns_network:
+        ipv4_address: 10.5.0.4
+    depends_on:
+      - dnscrypt-proxy
+
+  dnscrypt-proxy:
+    container_name: dnscrypt-proxy
+    build: ./dnscrypt-proxy
+    ports:
+      - "5300:53/tcp"
+      - "5300:53/udp"
+    volumes:
+      - ./etc-dnscrypt-proxy/:/etc/dnscrypt-proxy
+    read_only: true
+    restart: unless-stopped
+    networks:
+      dns_network:
+        ipv4_address: 10.5.0.5
+
+networks:
+  dns_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
+   
