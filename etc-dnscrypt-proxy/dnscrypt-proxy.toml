@@ -1,5 +1,5 @@
 # Core configuration
-listen_addresses = ['0.0.0.0:53']
+listen_addresses = ['10.5.0.5:53']
 max_clients = 256
 
 # Use servers reachable over IPv4
@@ -25,15 +25,15 @@ require_nofilter = true
 
 # Cache configuration
 cache = true
-cache_size = 4096
-cache_min_ttl = 0
 cache_max_ttl = 86400
-cache_neg_min_ttl = 0
+cache_min_ttl = 0
 cache_neg_max_ttl = 60
+cache_neg_min_ttl = 0
+cache_size = 4096
 
 # System DNS and fallback DNS
-ignore_system_dns = true
 bootstrap_resolvers = ['1.1.1.1:53']
+ignore_system_dns = true
 
 # Logging optimised for a container
 log_file = '/dev/stdout'
@@ -42,9 +42,12 @@ log_level = 2
 # Sources configuration
 [sources]
 
-  [sources.'public-resolvers']
-  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md']
-  cache_file = 'public-resolvers.md'
-  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
-  refresh_delay = 72
-  prefix = ''
+[sources.'public-resolvers']
+cache_file = 'public-resolvers.md'
+minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+prefix = ''
+refresh_delay = 72
+urls = [
+  'https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md',
+  'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md',
+]

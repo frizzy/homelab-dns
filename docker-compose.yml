@@ -1,5 +1,4 @@
 services:
-
   dnsmasq:
     image: dockurr/dnsmasq
     container_name: dnsmasq
@@ -18,9 +17,6 @@ services:
   dnscrypt-proxy:
     container_name: dnscrypt-proxy
     build: ./dnscrypt-proxy
-    ports:
-      - "5300:53/tcp"
-      - "5300:53/udp"
     volumes:
       - ./etc-dnscrypt-proxy/:/etc/dnscrypt-proxy
     read_only: true
@@ -36,4 +32,3 @@ networks:
       config:
         - subnet: 10.5.0.0/16
           gateway: 10.5.0.1
-   
