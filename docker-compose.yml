@@ -5,7 +5,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./dnsmasq.conf:/etc/dnsmasq.conf
-      - ./dnsmasq.d/:/etc/dnsmasq.d
+      - ./etc-dnsmasq.d/:/etc/dnsmasq.d
     ports:
       - "0.0.0.0:53:53/udp"
       - "0.0.0.0:53:53/tcp"
